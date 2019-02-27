@@ -27,15 +27,25 @@ public class Maze{
         count = reader.nextLine().length();
         lines++;
       }
-      char[][] ary = new char[lines][count];
+      maze = new char[lines][count];
       reader = new Scanner(text);
       lines = 0;
       while (reader.hasNextLine()) {
         String line = reader.nextLine();
         for (int i = 0; i < line.length(); i++) {
-          ary[lines][i] = line.charAt(i);
+          maze[lines][i] = line.charAt(i);
         }
       }
+    }
+
+    public String toString() {
+      int f = 0;
+      for (int i = 0; i < maze.length; i++) {
+        for (int j = 0; j < maze[0].length; j++) {
+          f += maze[i][j];
+        }
+      }
+      f += "\n";
     }
 
     private void wait(int millis){
