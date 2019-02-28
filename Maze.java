@@ -96,10 +96,11 @@ public class Maze{
         }
       }
             //erase the S
-      maze[i][j] = '@';
+      maze[sRow][sCol] = '@';
             //and start solving at the location of the s.
             //return solve(???,???);
-      return solve(sRow,sCol);
+      solve(sRow,sCol);
+      return -1;
     }
 
     /*
@@ -115,7 +116,7 @@ public class Maze{
         All visited spots that were not part of the solution are changed to '.'
         All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
+    private boolean solve(int row, int col){ //you can add more parameters since this is private
 
         //automatic animation! You are welcome.
         if(animate){
@@ -125,7 +126,24 @@ public class Maze{
         }
 
         //COMPLETE SOLVE
-        return -1; //so it compiles
+        if (maze[row][col] == '#' || maze[row][col] == '@') {
+          return false;
+        }
+        if (maze[row][col] == 'E') {
+          maze[row][col] = '@';
+          return true;
+        }
+        if (maze[row][col] == ' ') {
+          maze[row][col] = '@';
+          if (!(solve(row+1,col) || solve(row-1,col) || solve(row,col+1) || solve(row,col-1))) {
+            maze[row][col] = '.';
+            return false;
+          }
+          else {
+            return true;
+          }
+        }
+        return false;
     }
 
 }
