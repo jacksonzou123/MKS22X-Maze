@@ -85,16 +85,21 @@ public class Maze{
     */
     public int solve(){
             //find the location of the S.
+      int sRow = 0;
+      int sCol = 0;
       for (int i = 0; i < maze.length; i++) {
         for (int j = 0; j < maze[0].length; j++) {
-          if maze[i][j]
+          if (maze[i][j] == 'S') {
+            sRow = i;
+            sCol = j;
+          }
         }
       }
             //erase the S
-
+      maze[i][j] = '@';
             //and start solving at the location of the s.
             //return solve(???,???);
-            return -1;
+      return solve(sRow,sCol);
     }
 
     /*
