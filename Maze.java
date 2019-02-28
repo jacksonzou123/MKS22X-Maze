@@ -19,7 +19,7 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename) throws FileNotFoundException{
-      File text = new File("Maze.txt");
+      File text = new File(filename);
       Scanner reader = new Scanner(text);
       int lines = 0;
       int count = 0;
@@ -27,25 +27,38 @@ public class Maze{
         count = reader.nextLine().length();
         lines++;
       }
+      int eCount = 0;
+      int sCount = 0;
       maze = new char[lines][count];
       reader = new Scanner(text);
-      lines = 0;
       while (reader.hasNextLine()) {
-        String line = reader.nextLine();
-        for (int i = 0; i < line.length(); i++) {
-          maze[lines][i] = line.charAt(i);
+        for (int i = 0; i < lines; i++) {
+          String line = reader.nextLine();
+          for (int j = 0; j < line.length(); j++) {
+            maze[i][j] = line.charAt(j);
+            if (line.charAt(j) == 'E') {
+              eCount++;
+            }
+            if (line.charAt(j) == 'S') {
+              sCount++;
+            }
+          }
         }
+      }
+      if (eCount != 1 || sCount != 1) {
+        throw new IllegalStateException();
       }
     }
 
     public String toString() {
-      int f = 0;
+      String f = "";
       for (int i = 0; i < maze.length; i++) {
         for (int j = 0; j < maze[0].length; j++) {
           f += maze[i][j];
         }
+        f += "\n";
       }
-      f += "\n";
+      return f;
     }
 
     private void wait(int millis){
@@ -72,11 +85,16 @@ public class Maze{
     */
     public int solve(){
             //find the location of the S.
-
+      for (int i = 0; i < maze.length; i++) {
+        for (int j = 0; j < maze[0].length; j++) {
+          if maze[i][j]
+        }
+      }
             //erase the S
 
             //and start solving at the location of the s.
             //return solve(???,???);
+            return -1;
     }
 
     /*
