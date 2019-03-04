@@ -48,6 +48,7 @@ public class Maze{
       if (eCount != 1 || sCount != 1) {
         throw new IllegalStateException();
       }
+      animate = true;
     }
 
     public String toString() {
@@ -96,10 +97,20 @@ public class Maze{
         }
       }
             //erase the S
-      maze[sRow][sCol] = '@';
+      maze[sRow][sCol] = ' ';
             //and start solving at the location of the s.
             //return solve(???,???);
-      solve(sRow,sCol);
+      int f = 0;
+      if (solve(sRow,sCol)) {
+        for (int i = 0; i < maze.length; i++) {
+          for (int j = 0; j < maze[0].length; j++) {
+            if (maze[i][j] == '@') {
+              f++;
+            }
+          }
+        }
+        return f-1;
+      }
       return -1;
     }
 
@@ -117,8 +128,9 @@ public class Maze{
         All visited spots that are part of the solution are changed to '@'
     */
     private boolean solve(int row, int col){ //you can add more parameters since this is private
-
         //automatic animation! You are welcome.
+        System.out.println(maze[row][col]);
+        int[] moves = new int[] {1,0,0,1,-1,0,0,-1};
         if(animate){
             clearTerminal();
             System.out.println(this);
@@ -126,7 +138,10 @@ public class Maze{
         }
 
         //COMPLETE SOLVE
-        if (maze[row][col] == '#' || maze[row][col] == '@') {
+        if (maze[row][col] == '#') {
+          return false;
+        }
+        if (maze[row][col] == '@') {
           return false;
         }
         if (maze[row][col] == 'E') {
@@ -135,15 +150,23 @@ public class Maze{
         }
         if (maze[row][col] == ' ') {
           maze[row][col] = '@';
-          if (!(solve(row+1,col) || solve(row-1,col) || solve(row,col+1) || solve(row,col-1))) {
-            maze[row][col] = '.';
-            return false;
-          }
-          else {
-            return true;
+          for (int i = 0; i < moves.length; i+=2) {
+            if (solve(row + moves[i], col + moves[i+1])) {
+              return true;
+            }
           }
         }
+        maze[row][col] = '.';
         return false;
     }
 
+    public static void main(String[] args) {
+      try {
+        Maze test = new Maze("Maze.txt");
+        System.out.println(test.solve());
+      }
+      catch (FileNotFoundException e) {
+        System.out.println("haha");
+      }
+    }
 }
