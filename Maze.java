@@ -48,7 +48,6 @@ public class Maze{
       if (eCount != 1 || sCount != 1) {
         throw new IllegalStateException();
       }
-      animate = true;
     }
 
     public String toString() {
@@ -129,7 +128,6 @@ public class Maze{
     */
     private boolean solve(int row, int col){ //you can add more parameters since this is private
         //automatic animation! You are welcome.
-        System.out.println(maze[row][col]);
         int[] moves = new int[] {1,0,0,1,-1,0,0,-1};
         if(animate){
             clearTerminal();
