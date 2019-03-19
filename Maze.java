@@ -161,10 +161,8 @@ public class Maze{
     public static void main(String[] args) {
       try {
         Maze test = new Maze("Maze.txt");
-        System.out.println(test.solve());
       }
       catch (FileNotFoundException e) {
-        System.out.println("haha");
       }
     }
 }
